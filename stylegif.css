@@ -1,0 +1,93 @@
+body{
+	margin:2px;
+	background: linear-gradient(white, black);
+	background-repeat: no-repeat;
+	height: 1024px;
+}
+
+#general {width: 1024px;}
+
+h1{
+	font-size: 36px;
+	font-family: sans-serif;
+}
+
+#title{
+	border: 5px solid black;
+	text-align: center;
+	width: 170px;
+	margin: auto;
+	background: linear-gradient(white 50%, black 50%);
+	transform: rotate(-15deg);
+	margin-top: 35px;
+	margin-bottom: 35px;
+}
+
+#goodButtonsHere {
+	height: 700px;
+	width: 170px;
+	text-align: center;
+	float: left;
+}
+
+#badButtonsHere {
+	height: 700px;
+	width: 170px;
+	text-align: center;
+	float: left;
+}
+
+
+.theBadT{color:white;
+}
+
+
+.goodBtnCl{
+	font-size: 18px;
+	background-color:white;
+	border-radius: 10px;
+	border: solid black 2px;
+	margin: 10px;
+}
+
+.badBtnCl{
+	font-size: 18px;
+	color: white;
+	background-color:black;
+	border-radius: 10px;
+	border: solid white 2px;
+	margin: 10px;
+}
+
+.goodBtn:active {
+	background: black;
+	color: white;
+	border: solid white 2px;
+}
+
+.goodBtn:focus {
+	border: none;
+}
+
+.imagen {
+	
+	padding:0px;
+	border:solid white 1px;
+}
+
+
+#videosHere {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+
+.frame {
+	margin: 5px 10px 5px 10px;
+}
+
+h2 {
+	font-family: sans-serif;
+	color:white;
+ }

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>The Good and The Bad</title>
+	<link rel="stylesheet" type="text/css" href="reset.css">
+	<link rel="stylesheet" type="text/css" href="stylegif.css">
+</head>
+<body>
+<div id="general">
+	<div id="title">
+		<h1>
+			The Good
+		</h1>
+		<h1 class="theBadT">& The bad</h1>
+	</div>
+	
+	<div id="goodButtonsHere">
+	</div>
+
+	<div id="badButtonsHere">
+			
+	</div>
+
+	<div id="videosHere"></div>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script type="text/javascript">
+
+	var goodItems= ["Good Moments", "Good Friends", "Good Cars", "Good Doctors", "Good Minion", "Good Mechanic", "Good Guy", "Good Girl"];
+
+	var badItems= ["Bad Moments", "Bad Friends", "Bad Cars", "Bad Doctors", "Bad Minion", "Bad Mechanic", "Bad Guy", "Bad Girl"];
+
+ 	$(document).ready(function(){ 
+
+ 		var quest;
+ 		var queryURL;
+ 		var stillUrls = [];
+ 		var movingUrls = [];
+
+ 		for(var i = 0; i < goodItems.length; i++){
+ 			var goodBt = $("<button>");
+ 			goodBt.attr("class" , "goodBtnCl aButton");
+ 			goodBt.attr("data" , goodItems[i]);
+ 			goodBt.html(goodItems[i]);
+ 			$("#goodButtonsHere").append(goodBt);
+ 		}
+
+ 		for(var i = 0; i < badItems.length; i++){
+ 			var badBt = $("<button>");  
+ 			badBt.attr("class" , "badBtnCl aButton");
+ 			badBt.attr("data" , badItems[i]);
+ 			badBt.html(badItems[i]);
+ 			$("#badButtonsHere").append(badBt);
+ 		}
+
+ 			$(".aButton").on("click", function(){
+ 				quest = ($(this).attr("data"));
+ 				queryURL = "http://api.giphy.com/v1/gifs/search?q=" + quest + "&limit=10&api_key=dc6zaTOxFJmzC";
+ 				
+			
+ 		$.ajax({
+ 			url: queryURL,
+ 			method:"GET"
+ 		})
+ 		.done(function(response){
+ 			console.log(response);
+ 			$("#videosHere").empty();
+ 			stillUrls = [];
+ 			movingUrls = [];
+ 			rateUrls = [];
+
+// create an array with each animated picture
+ 			for(i = 0; i < 10; i++){
+ 				stillUrls.push(response.data[i].images.fixed_width_still.url);
+ 				movingUrls.push(response.data[i].images.fixed_width_downsampled.url);
+ 				rateUrls.push(response.data[i].rating);
+ 			}//end of the loop
+
+ 			 for(var i = 0; i < stillUrls.length; i++){
+ 			 	var pictureFrame = $("<div>");
+ 			 	pictureFrame.attr("class", "frame")
+ 			 	$("#videosHere").append(pictureFrame);
+ 			 	var picture = $("<img>");
+ 			 	picture.attr("src", stillUrls[i]);
+ 			 	picture.attr("data-status", "still");
+ 			 	picture.attr("array-index", i);
+ 			 	picture.attr("class", "imagen");
+ 			 	pictureFrame.append(picture);
+ 			 	var rateLabel = $("<h2>");
+ 			 	rateLabel.html(rateUrls[i]);
+ 			 	pictureFrame.append(rateLabel);
+ 			 }//end of the loop
+
+
+ 			 $(".imagen").on("click", function(){
+ 			 		var status = $(this).attr("data-status");
+ 			 		var arrayIndex = $(this).attr("array-index");
+ 			 		
+ 			 		if(status === "still"){
+ 			 			$(this).attr("src", movingUrls[arrayIndex]);
+ 			 			$(this).attr("data-status", "moving");
+ 			 		} else {
+ 			 			$(this).attr("src", stillUrls[arrayIndex]);
+ 			 			$(this).attr("data-status", "still");
+ 			 		}
+
+ 			 });//end of thesecond click event
+
+
+
+
+
+		})// end of ajax function 
+ 	});// end of the on click function for the buttons
+ 
+})//end of ready function
+
+</script>
+</html>
